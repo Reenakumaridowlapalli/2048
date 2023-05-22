@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>2048 Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        
+        h1 {
+            margin-top: 50px;
+        }
+        
+        #game-container {
+            display: inline-block;
+            margin-top: 20px;
+        }
+        
+        td,.cell{
+            width: 100px;
+            height: 100px;
+            margin: 5px;
+            font-size: 30px;
+            text-align: center;
+            line-height: 100px;
+            border-radius: 5px;
+            font-weight: bold;
+            
+        }
+        
+        .cell-0 {
+            background-color: #cdc1b4;
+        }
+        
+        .cell-2 {
+            background-color: #eee4da;
+            color: #776e65;
+        }
+        
+        .cell-4 {
+            background-color: #ede0c8;
+            color: #776e65;
+        }
+        
+        .cell-8 {
+            background-color: #f2b179;
+            color: #f9f6f2;
+        }
+        
+        .cell-16 {
+            background-color: #f59563;
+            color: #f9f6f2;
+        }
+        
+        .cell-32 {
+            background-color: #f67c5f;
+            color: #f9f6f2;
+        }
+        
+        .cell-64 {
+            background-color: #f65e3b;
+            color: #f9f6f2;
+        }
+        
+        .cell-128 {
+            background-color: #edcf72;
+            color: #f9f6f2;
+        }
+        
+        .cell-256 {
+            background-color: #edcc61;
+            color: #f9f6f2;
+        }
+        
+        .cell-512 {
+            background-color: #edc850;
+            color: #f9f6f2;
+        }
+        
+        .cell-1024 {
+            background-color: #edc53f;
+            color: #f9f6f2;
+        }
+        
+        .cell-2048 {
+            background-color: #edc22e;
+            color: #f9f6f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>2048 Game</h1>
+    <div id="game-container"></div>
+    
+    <script>
+        let board = [...Array(4)].map(() => Array(4).fill(0));
+        
+        function initializeBoard() {
+            for (let row = 0; row < 4; row++) {
+                for (let col = 0; col < 4; col++) {
+                    board[row][col] = 0;
+                }
+            }
+        }
+        
+        function fillRandomPosition() {
+            let tileCount = 0;
+            for (let row = 0; row < 4; row++) {
+                for (let col = 0; col < 4; col++) {
+                    if (board[row][col] !== 0) {
+                        tileCount++;
+                    }
+                }
+            }
+        
+            if (tileCount === 16) {
+                return;
+            }
+            
+            let row, col;
+            do {
+                row = Math.floor(Math.random() * 4);
+                col = Math.floor(Math.random() * 4);
+            } while (board[row][col] !== 0);
+            
+            board[row][col] = 2;
+        }
+        
+        function rowEmpty(row) {
+            for (let col = 0; col < 4; col++) {
+                if (board[row][col] !== 0) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        
+        function colEmpty(col) {
+            for (let row = 0; row < 4; row++) {
+                if (board[row][col] !== 0) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        
+        function isGameOver() {
+            for (let row = 0; row < 4; row++) {
+                for (let col = 0; col < 4; col++) {
+                    if (board[row][col] === 2048) {
+                        return 100;
+                    }
+                }
+            }
+            
+            for (let row = 0; row < 4; row++) {
+                for (let col = 0; col < 4; col++) {
+                    if (board[row][col] === 0) {
+                        return 0;
+                    }
+                    if (col !== 3 && row !== 3) {
+                        if (board[row][col] === board[row][col + 1] || board[row][col] === board[row + 1][col]) {
+                            return 0;
+                        }
+                    }
+                }
+            }
+            
+            return 1;
+        }
+        
+        /*function printMatrix() {
+            let gameContainer = document.getElementById('game-container');
+            gameContainer.innerHTML = '';
+            
+            for (let row = 0; row < 4; row++) {
+                for (let col = 0; col < 4; col++) {
+                    let value = board[row][col];
+                    let cell = document.createElement('div');
+                    cell.classList.add('cell');
+                    cell.classList.add(`cell-${value}`);
+                    cell.textContent = value !== 0 ? value : '';
+                    gameContainer.appendChild(cell);
+                }
+                
+            }
+        }*/
+        function printMatrix() {
+		let gameContainer = document.getElementById('game-container');
+            gameContainer.innerHTML = '';
+            let output = '<table>';
+            for (let row = 0; row < 4; row++) {
+                output += '<tr>';
+                for (let col = 0; col < 4; col++) {
+                    let value = board[row][col];
+                    if(value === 0){
+                        output += `<td class = 'cell-0'></td>`;
+                    }
+                    else{
+                        output += `<td class = 'cell-${value}'>${value}</td>`;
+                    }
+                }
+                output += '</tr>';
+            }
+            output += '</table>';
+            gameContainer.innerHTML= output ;
+        } 
+        
+        function moveLeft() {
+            for (let row = 0; row < 4; row++) {
+                if (rowEmpty(row)) {
+                    continue;
+                }
+                
+                for (let i = 0; i < 4; i++) {
+                    for (let col = 3; col > 0; col--) {
+                        if (board[row][col] !== 0 && board[row][col - 1] === 0) {
+                            [board[row][col], board[row][col - 1]] = [board[row][col - 1], board[row][col]];
+                        }
+                    }
+                }
+                
+                for (let col = 0; col < 3; col++) {
+                    if (board[row][col] === board[row][col + 1]) {
+                        board[row][col] *= 2;
+                        board[row][col + 1] = 0;
+                    }
+                }
+                
+                for (let i = 0; i < 4; i++) {
+                    for (let col = 3; col > 0; col--) {
+                        if (board[row][col] !== 0 && board[row][col - 1] === 0) {
+                            [board[row][col], board[row][col - 1]] = [board[row][col - 1], board[row][col]];
+                        }
+                    }
+                }
+            }
+        }
+        
+        function moveRight() {
+            for (let row = 0; row < 4; row++) {
+                if (rowEmpty(row)) {
+                    continue;
+                }
+                
+                for (let i = 0; i < 4; i++) {
+                    for (let col = 0; col < 3; col++) {
+                        if (board[row][col] !== 0 && board[row][col + 1] === 0) {
+                            [board[row][col], board[row][col + 1]] = [board[row][col + 1], board[row][col]];
+                        }
+                    }
+                }
+                
+                for (let col = 3; col > 0; col--) {
+                    if (board[row][col] === board[row][col - 1]) {
+                        board[row][col] *= 2;
+                        board[row][col - 1] = 0;
+                    }
+                }
+                
+                for (let i = 0; i < 4; i++) {
+                    for (let col = 0; col < 3; col++) {
+                        if (board[row][col] !== 0 && board[row][col + 1] === 0) {
+                            [board[row][col], board[row][col + 1]] = [board[row][col + 1], board[row][col]];
+                        }
+                    }
+                }
+            }
+        }
+        
+        function moveUp() {
+            for (let col = 0; col < 4; col++) {
+                if (colEmpty(col)) {
+                    continue;
+                }
+                
+                for (let i = 0; i < 4; i++) {
+                    for (let row = 3; row > 0; row--) {
+                        if (board[row][col] !== 0 && board[row - 1][col] === 0) {
+                            [board[row][col], board[row - 1][col]] = [board[row - 1][col], board[row][col]];
+                        }
+                    }
+                }
+                
+                for (let row = 0; row < 3; row++) {
+                    if (board[row][col] === board[row + 1][col]) {
+                        board[row][col] *= 2;
+                        board[row + 1][col] = 0;
+                    }
+                }
+                
+                for (let i = 0; i < 4; i++) {
+                    for (let row = 3; row > 0; row--) {
+                        if (board[row][col] !== 0 && board[row - 1][col] === 0) {
+                            [board[row][col], board[row - 1][col]] = [board[row - 1][col], board[row][col]];
+                        }
+                    }
+                }
+            }
+        }
+        
+        function moveDown() {
+            for (let col = 0; col < 4; col++) {
+                if (colEmpty(col)) {
+                    continue;
+                }
+                
+                for (let i = 0; i < 4; i++) {
+                    for (let row = 0; row < 3; row++) {
+                        if (board[row][col] !== 0 && board[row + 1][col] === 0) {
+                            [board[row][col], board[row + 1][col]] = [board[row + 1][col], board[row][col]];
+                        }
+                    }
+                }
+                
+                for (let row = 3; row > 0; row--) {
+                    if (board[row][col] === board[row - 1][col]) {
+                        board[row][col] *= 2;
+                        board[row - 1][col] = 0;
+                    }
+                }
+                
+                for (let i = 0; i < 4; i++) {
+                    for (let row = 0; row < 3; row++) {
+                        if (board[row][col] !== 0 && board[row + 1][col] === 0) {
+                            [board[row][col], board[row + 1][col]] = [board[row + 1][col], board[row][col]];
+                        }
+                    }
+                }
+            }
+        }
+        
+        function handleKey(event) {
+            if (event.keyCode === 37) { // Left
+                moveLeft();
+            } else if (event.keyCode === 39) { // Right
+                moveRight();
+            } else if (event.keyCode === 38) { // Up
+                moveUp();
+            } else if (event.keyCode === 40) { // Down
+                moveDown();
+            } else {
+                return;
+            }
+        
+            if (isGameOver() === 1) {
+                alert('Game Over!');
+                return;
+            } else if (isGameOver() === 100) {
+                alert('Congratulations! You reached 2048!');
+                return;
+            }
+        
+            fillRandomPosition();
+            printMatrix();
+        }
+        
+        initializeBoard();
+        fillRandomPosition();
+        fillRandomPosition();
+        printMatrix();
+        
+        document.addEventListener('keydown', handleKey);
+    </script>
+</body>
+</html>
