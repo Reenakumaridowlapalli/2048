@@ -103,10 +103,13 @@
 </div>
 
     <script>
-        let board = [...Array(4)].map(() => Array(4).fill(0));        
+        let board = [...Array(4)].map(() => Array(4).fill(0));
         
         function resetButton() {
             initializeBoard();
+            fillRandomPosition();
+            fillRandomPosition(); 
+            printMatrix();
         }
 
         function initializeBoard() {
