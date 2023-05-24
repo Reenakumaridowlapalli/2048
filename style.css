@@ -1,0 +1,84 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+h1 {
+    margin-top: 50px;
+}
+
+#game-container {
+    display: inline-block;
+    margin-top: 20px;
+}
+
+td,.cell{
+    width: 100px;
+    height: 100px;
+    margin: 5px;
+    font-size: 30px;
+    text-align: center;
+    line-height: 100px;
+    border-radius: 5px;
+    font-weight: bold;
+    
+}
+
+.cell-0 {
+    background-color: #cdc1b4;
+}
+
+.cell-2 {
+    background-color: #eee4da;
+    color: #776e65;
+}
+
+.cell-4 {
+    background-color: #ede0c8;
+    color: #776e65;
+}
+
+.cell-8 {
+    background-color: #f2b179;
+    color: #f9f6f2;
+}
+
+.cell-16 {
+    background-color: #f59563;
+    color: #f9f6f2;
+}
+
+.cell-32 {
+    background-color: #f67c5f;
+    color: #f9f6f2;
+}
+
+.cell-64 {
+    background-color: #f65e3b;
+    color: #f9f6f2;
+}
+
+.cell-128 {
+    background-color: #edcf72;
+    color: #f9f6f2;
+}
+
+.cell-256 {
+    background-color: #edcc61;
+    color: #f9f6f2;
+}
+
+.cell-512 {
+    background-color: #edc850;
+    color: #f9f6f2;
+}
+
+.cell-1024 {
+    background-color: #edc53f;
+    color: #f9f6f2;
+}
+
+.cell-2048 {
+    background-color: #edc22e;
+    color: #f9f6f2;
+}
