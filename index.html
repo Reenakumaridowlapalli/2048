@@ -91,11 +91,24 @@
 </head>
 <body>
     <h1>2048 Game</h1>
+<div>
     <div id="game-container"></div>
-    
+    <p></p>
+    <button onclick="leftButton()">Left</button>
+    <button onclick="rightButton()">Right</button>
+    <button onclick="upButton()">Up</button>
+    <button onclick="downButton()">Down</button>
+    <button onclick="resetButton()">Reset</button>
+    </div>
+</div>
+
     <script>
-        let board = [...Array(4)].map(() => Array(4).fill(0));
+        let board = [...Array(4)].map(() => Array(4).fill(0));        
         
+        function resetButton() {
+            initializeBoard();
+        }
+
         function initializeBoard() {
             for (let row = 0; row < 4; row++) {
                 for (let col = 0; col < 4; col++) {
@@ -355,7 +368,27 @@
             fillRandomPosition();
             printMatrix();
         }
+
+        function leftButton(){
+            event.keyCode = 37;
+            handleKey(event);    
+        }
         
+        function rightButton(){
+            event.keyCode = 39;
+            handleKey(event);    
+        }
+
+        function upButton(){
+            event.keyCode = 38;
+            handleKey(event);    
+        }
+
+        function downButton(){
+            event.keyCode = 40;
+            handleKey(event);    
+        }
+
         initializeBoard();
         fillRandomPosition();
         fillRandomPosition();
