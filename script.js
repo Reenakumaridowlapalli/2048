@@ -1,16 +1,12 @@
 let board = [...Array(4)].map(() => Array(4).fill(0));
+let touchstartX = 0 ;
+let touchendX = 0 ;
+let touchstartY = 0 ;
+let touchendY = 0 ;
 
-if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){                
-            var button = document.createElement("button");
-            button.innerHTML = "Left";
-            button.setAttribute("onclick","leftButton()");
-            var body = document.getElementById("Container");
-            body.appendChild(button);
-            var button = document.createElement("button");
-            button.innerHTML = "Right";
-            button.setAttribute("onclick","rightButton()");
-            var body = document.getElementById("Container");
-            body.appendChild(button);
+
+/*if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){                
+
             var button = document.createElement("button");
             button.innerHTML = "Up";
             button.setAttribute("onclick","upButton()");
@@ -33,7 +29,59 @@ else {
             button.setAttribute("onclick","resetButton()");
             var body = document.getElementById("Container");
             body.appendChild(button);
+}*/
+var button = document.createElement("button");
+button.innerHTML = "Reset";
+button.setAttribute("onclick","resetButton()");
+var body = document.getElementById("Container");
+body.appendChild(button);
+
+
+function checkDirection(){
+    if(touchendX < touchstartX){
+        leftButton();
+    }
+    else if(touchendX > touchstartX){
+        rightButton();
+    }
+    if(touchendY < touchstartX){
+        upButton();
+    }
+    else if(touchendY > touchstartY){
+        downButton();
+    }
+    
+ 
 }
+
+var bb = document.getElementById("Container");
+
+bb.addEventListener("touchstart", (e) => {
+    touchstartX = e.changedTouches[0].screenX;
+});
+
+bb.addEventListener("touchend", (e) => {
+    touchendX = e.changedTouches[0].screenX;
+    checkDirection();
+});
+bb.addEventListener("touchstart", (e) => {
+    touchstartX = e.changedTouches[0].screenX;
+});
+
+bb.addEventListener("touchend", (e) => {
+    touchendX = e.changedTouches[0].screenX;
+    checkDirection();
+});
+bb.addEventListener("touchstart", (e) => {
+    touchstartY = e.changedTouches[1].screenX;
+});
+
+bb.addEventListener("touchend", (e) => {
+    touchendY = e.changedTouches[1].screenX;
+    checkDirection();
+});
+
+
 
 function resetButton() {
     initializeBoard();
