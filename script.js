@@ -1,33 +1,38 @@
 let board = [...Array(4)].map(() => Array(4).fill(0));
 
 if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){                
-             var button = document.createElement("button");
-             button.innerHTML = "Left";
-             button.setAttribute("onclick","leftButton()");
-             var body = document.getElementById("Container");
-             body.appendChild(button);
-             var button = document.createElement("button");
-             button.innerHTML = "Right";
-             button.setAttribute("onclick","rightButton()");
-             var body = document.getElementById("Container");
-             body.appendChild(button);
-             var button = document.createElement("button");
-             button.innerHTML = "Up";
-             button.setAttribute("onclick","upButton()");
-             var body = document.getElementById("Container");
-             body.appendChild(button);
-             var button = document.createElement("button");
-             button.innerHTML = "Down";
-             button.setAttribute("onclick","downButton()");
-             var body = document.getElementById("Container");
-             body.appendChild(button);
-             var button = document.createElement("button");
-             button.innerHTML = "Reset";
-             button.setAttribute("onclick","resetButton()");
-             var body = document.getElementById("Container");
-             body.appendChild(button);
-}else{
-      document.write("not mobile device");
+            var button = document.createElement("button");
+            button.innerHTML = "Left";
+            button.setAttribute("onclick","leftButton()");
+            var body = document.getElementById("Container");
+            body.appendChild(button);
+            var button = document.createElement("button");
+            button.innerHTML = "Right";
+            button.setAttribute("onclick","rightButton()");
+            var body = document.getElementById("Container");
+            body.appendChild(button);
+            var button = document.createElement("button");
+            button.innerHTML = "Up";
+            button.setAttribute("onclick","upButton()");
+            var body = document.getElementById("Container");
+            body.appendChild(button);
+            var button = document.createElement("button");
+            button.innerHTML = "Down";
+            button.setAttribute("onclick","downButton()");
+            var body = document.getElementById("Container");
+            body.appendChild(button);
+            var button = document.createElement("button");
+            button.innerHTML = "Reset";
+            button.setAttribute("onclick","resetButton()");
+            var body = document.getElementById("Container");
+            body.appendChild(button);
+    }
+else {
+            var button = document.createElement("button");
+            button.innerHTML = "Reset";
+            button.setAttribute("onclick","resetButton()");
+            var body = document.getElementById("Container");
+            body.appendChild(button);
 }
 
 function resetButton() {
