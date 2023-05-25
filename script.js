@@ -29,7 +29,8 @@ else {
             button.setAttribute("onclick","resetButton()");
             var body = document.getElementById("Container");
             body.appendChild(button);
-}*/
+}
+*/
 var button = document.createElement("button");
 button.innerHTML = "Reset";
 button.setAttribute("onclick","resetButton()");
